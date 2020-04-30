@@ -11,7 +11,7 @@
 # --------------------------------------------------
 
 # Display settings (color codes are allowed in both but only recommended in description)
-name: '&a[Slytherin Common Room]'
+name: '&2&l[&a&lSlytherin Common Room&2&l]'
 description:
   - '&aVisiting your house common room.'
 
@@ -183,7 +183,7 @@ branches:
   # --------------------------------------------------
   1_TRAVELTOYOURCOMMONROOM:
     # Branch name (optional)
-    name: '&a[Slytherin Common Room]'
+    name: '&2&l[&a&lSlytherin Common Room&2&l]'
     # Auto start because it's the main branch
     starts_directly: true
     # This branch starts at object named Travel_to_your_Common_Room
