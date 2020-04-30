@@ -198,7 +198,7 @@ branches:
         location:
             base: 'world,-9476,15,9418' # TO UPDATE
         actions:
-          - 'MESSAGE &8&l(&d&l!&8&l) &aThis is your Hogwarts common room.'
+          - 'MESSAGE &8&l(&d&l!&8&l) &aWelcome to your Hogwarts common room.'
           - 'WAIT 3'
           - 'MESSAGE &8&l(&d&l!&8&l) &aThe next things to do as a brand new student is to get to know your courses!'
           - 'WAIT 3'
