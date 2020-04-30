@@ -239,7 +239,7 @@ branches:
           1:
             text: '&6Peeves' Map'
             redo_text: '&4Click Me'
-            goto: 4_FINDTHETREASURE
+            goto: OBJECT 4_FINDTHETREASURE
       4_FINDTHETREASURE:
         # settings
         type: PLAYER_WALK
