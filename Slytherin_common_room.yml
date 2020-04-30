@@ -206,7 +206,7 @@ branches:
           - 'WAIT 3'
           - 'MESSAGE &8&l(&d&l!&8&l) &aYou also have unlocked the &4&l[&c&lPhilosopher's Stone&4&l] &astoryline quests unlocked!'
           - 'WAIT 3'
-          - 'MESSAGE &8&l(&d&l!&8&l) &a Get to know the community and have fun - there's a lot of stuff to do here, just explore!'
+          - 'MESSAGE &8&l(&d&l!&8&l) &aGet to know the community and have fun - there's a lot of stuff to do here, just explore!'
         # end
         goto: QUEST_SUCCESS
 # TODO DEBUG ALL INCL. COMMAND DISPATCH
