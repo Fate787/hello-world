@@ -1,0 +1,290 @@
+#----------------------------------------------------------------------------------------------------
+# Quest configuration file (file name without the extension is the quest identifier)
+#----------------------------------------------------------------------------------------------------
+# Refer to the plugin's wiki to have more details about how creating a quest.
+# There are some tips in this file but most explanations (including variables, conditions, etc) are in the wiki.
+#----------------------------------------------------------------------------------------------------
+
+# --------------------------------------------------
+# Quest settings
+# Some general parameters about the quest
+# --------------------------------------------------
+
+# Display settings (color codes are allowed in both but only recommended in description)
+name: '&6&lPeeves Hunt 1'
+description:
+  - '&7Oh you imprudent student, have I a quest for you!'
+
+# Maximum different instances of this quest that can be run at the same time
+# One instance = one running quest (so 2 players doing this quest cooperating is one instance, same goes for one player doing this quest on his own)
+# It's definitely not a good idea to set it to more than 1 if the quest has Objects that affects Citizens NPCs. It might be messy if multiple instances of the quest are manipulating the same Citizens NPCs at the same time.
+# Default : 1
+max_concurrent_instances: -1
+
+# Create a queue for starting this quest if 'max_concurrent_instances' is already reached when trying to start the quest.
+max_concurrent_instances_queue: false
+
+# Minimum/maximum players that can do the quest together (count the quest starter and additionnal coop players, so for instance it's 1 for a solo quest and 2 for a duo quest)
+# Default : minimum 1, maximum 1
+min_players: 1
+max_players: 1
+allow_coop_leave_until_remaining_coop: 1
+
+# Maximum times the player can complete the quest
+# Default : 1
+max_completions: 1
+
+# Allow the quest leader to stop the quest ?
+allow_stop: false
+
+# Maximum time (in minutes) the player has to do the quest, otherwise the quest is cancelled
+# Default : 0 (disabled)
+time_limit: 0
+
+# Time the player will have to wait between completions (will be effective if max_completions is greater than 1)
+# Available options :
+# - DISABLED
+# - ENABLED [minutes]
+# - ENABLED_SUCCESS [minutes] (only on quest success)
+# - ENABLED_FAIL [minutes] (only on quest fail)
+# - ENABLED_CANCEL [minutes] (only on quest cancel)
+# - ENABLED_SUCCESS_AND_FAIL [minutes] (only on quest success or fail)
+# - ENABLED_SUCCESS_AND_CANCEL [minutes] (only on quest success or cancel)
+# - ENABLED_FAIL_AND_CANCEL [minutes] (only on quest fail or cancel)
+# Default : DISABLED
+cooldown: DISABLED
+
+# Should the cooldown be given to leader only ?
+# Default : false
+cooldown_for_leader_only: false
+
+# Action bar displayed during the quest
+# Default : '&a{quest} &7- Objective : &a{detailed_progression}'
+actionbar: '&a&l{quest} &6- Objective: &e{detailed_progression}'
+
+# Display the success/fail message when the player ends the quest
+# Default : true
+send_status_message: true
+
+# Display the objective complete message for group objects
+# Default : true
+send_objective_update_message: true
+
+# The player will need this permission to start the quest
+# Default : empty (disabled)
+permission: ''
+
+# Should the quest leader be the only one to have the quest marked as completed ?
+# Default : false
+complete_for_leader_only: false
+
+# Running quest progression saving method
+# - ENABLED (save on disk/database when player leave, on server stop/reload and with delay)
+# - SERVER_EPHEMERIAL (will be saved when player leaves but when the server is stopped or reloaded all the progression will be erased)
+# - PLAYER_EPHEMERIAL (running quests will not be saved when player leaves or when the server is stopped or reloaded)
+# Default : ENABLED
+saving: ENABLED
+
+# Actions that will make the quest fail if performed
+# Default : empty
+fail_actions: []
+
+# The quest can only be started/progressed in those worlds
+# Default : empty (disabled)
+world_whitelist: []
+
+# The quest can't be started/progressed in those worlds
+# Default : empty (disabled)
+world_blacklist: []
+
+# Integration for 'GPS' plugin ?
+# Default : true (but will only work if the GPS plugin is enabled)
+gps_enable: true
+
+# Integration for 'Dynmap' plugin ?
+# Default : null (disabled)
+dynmap_marker_location: null
+
+# --------------------------------------------------
+# GUI
+# Configure GUI items appearance
+# --------------------------------------------------
+
+gui:
+  # item_available : when the quest is available
+  item_available:
+    type: GREEN_WOOL
+    name: '&a&l{name} &7- &aAVAILABLE'
+    lore:
+           - '&7{description}'
+           - '&eRight click to begin this quest...'
+  # item_progress : will be shown when the quest status is 'in progress'
+  item_progress:
+    type: YELLOW_WOOL
+    name: '&a&l{name} &7- &eIN PROGRESS'
+    lore:
+           - '&7{description}'
+           - '{detailed_progression}'
+           - '&eRight click to stop this quest'
+  # item_cooldown : will be shown when the quest status is 'completed' and the player hasn't reached max_completions and the cooldown is not over
+  item_cooldown:
+    type: RED_WOOL
+    name: '&a&l{name} &7- &cCOOLDOWN'
+    lore:
+           - '&7{description}'
+           - '&7&lYou have completed this quest {completions} time{plural}.'
+           - '&7&l{cooldown} remaining before you can start this quest again.'
+  # item_cooldown_pool : will be shown when the quest status is 'completed' and the player hasn't reached max_completions and the quest pool cooldown is not over
+  item_cooldown_pool:
+    type: RED_WOOL
+    name: '&a&l{name} &7- &cCOOLDOWN'
+    lore:
+           - '&7{description}'
+           - '&7&lYou have completed this quest {completions} time{plural}.'
+           - '&7&l{cooldown} remaining before you can start this quest again.'
+  # item_completed : will be shown when the quest status is 'completed' and the player has reached max_completions
+  item_completed:
+    type: DIAMOND
+    name: '&a&l{name} &7- &aCOMPLETED'
+    lore:
+           - '&7{description}'
+           - '&7&lYou have completed this quest {completions} time{plural}.'
+  # item_unavailable : will be shown when all preconditions aren't okay (model validity, follow check, max players, max instances, permissions, world, start conditions, ...)
+  item_unavailable:
+    type: BARRIER
+    name: '&a&l{name} &7- &4UNAVAILABLE'
+    lore:
+           - '&7{description}'
+           - '&cThis quest isn''t available for you.'
+           - '&c{detailed_errors}'
+
+# --------------------------------------------------
+# Start conditions
+# Things that the player needs to start the quest
+# --------------------------------------------------
+
+#start_conditions: []
+
+  # You could also set it like this :
+  #conditions:
+  #  - registered_condition
+  # ... and register the condition in conditions.yml ; this condition above is really specific to this quest though so it's not really needed
+
+# --------------------------------------------------
+# Quest branches
+# What's going to happen in this quest
+# --------------------------------------------------
+
+branches:
+
+  # --------------------------------------------------
+  # This is our main branch
+  # Everybody will have to follow it because it's the beginning of the quest
+  # --------------------------------------------------
+  1_ACCEPTTHISQUESTBYTALKINGTOPEEVES:
+    # Branch name (optional)
+    name: '1_ACCEPTTHISQUESTBYTALKINGTOPEEVES'
+    # Auto start because it's the main branch
+    starts_directly: true
+    # This branch starts at object named 1_ACCEPTTHISQUESTBYTALKINGTOPEEVES
+    starts_at: 1_ACCEPTTHISQUESTBYTALKINGTOPEEVES
+    # Objects (content of this branch)
+    objects:
+      # '1_ACCEPTTHISQUESTBYTALKINGTOPEEVES' : our starting object, some messages
+      1_ACCEPTTHISQUESTBYTALKINGTOPEEVES:
+        # settings
+        type: SERVER_ACTION_LIST
+        actions:
+           - 'SOUND ENTITY_VILLAGER_AMBIENT'
+           - 'MESSAGE &6&lPeeves&8&l» &7Oh you fatty, I have a quest...'
+           - 'WAIT 3'
+           - 'SOUND ENTITY_VILLAGER_AMBIENT'
+           - 'MESSAGE &6&lPeeves&8&l» &7Though you're bratty it is the best!'
+           - 'WAIT 3'
+           - 'SOUND ENTITY_VILLAGER_AMBIENT'
+           - 'MESSAGE &6&lPeeves&8&l» &7Go see nasty Filch's office'
+           - 'WAIT 3'
+           - 'SOUND ENTITY_VILLAGER_AMBIENT'
+           - 'MESSAGE &6&lPeeves&8&l» &7and find the map!'
+           - 'WAIT 3'
+           - 'SOUND ENTITY_VILLAGER_AMBIENT'
+           - 'MESSAGE &6&lPeeves&8&l» &7Or maybe it's just Peevsies' trap :)'
+           - 'WAIT 3'
+        # ended : when this object is completed, we go to the next object
+        goto: OBJECT 2_TRAVELTOFILCHOFFICE
+      # '2_RULESQUIZ' : our starting object, some messages
+      2_TRAVELTOFILCHOFFICE:
+        # settings
+        type: PLAYER_WALK
+        walk_type: 'WALK_TO'
+        location:
+            base: 'world,-9708,39,9208' # TO UPDATE
+        actions:
+            - 'MESSAGE &8&l(&d&l!&8&l) &4&lClick the sign to view the map!'
+        # ended : when this object is completed, we go to the next object
+        goto: OBJECT 3_FILCHOFFICEMAP
+      3_FILCHOFFICEMAP:
+        # pre (wait 3 seconds)
+        wait: 3
+        message: '&4&lClick Me --> htps://dawiki.millee.xyz/ingame/quest/fl1q13 &4&lClick Me --> htps://dawiki.millee.xyz/ingame/quest/fl1q13 &4&lClick Me --> htps://dawiki.millee.xyz/ingame/quest/fl1q13'
+        sound:
+          type: ENTITY_ZOMBIE_VILLAGER_HURT
+        # name
+        name: '&6Peeves' Map'
+        progress_name: '&6Peeves' Map'
+        # settings
+        type: DIVERGE
+        repeat_delay: 2880
+        choices:
+          1:
+            text: '&6Peeves' Map'
+            redo_text: '&4Click Me'
+            goto: 4_FINDTHETREASURE
+      4_FINDTHETREASURE:
+        # settings
+        type: PLAYER_WALK
+        walk_type: 'WALK_TO'
+        location:
+            base: 'world,-9358,41,9140' # TO UPDATE
+        actions:
+            - 'MESSAGE &8&l(&d&l!&8&l) &7&oYou have completed a task for the Quest &6&lPeeves Hunt 1'
+            - 'MESSAGE &8&l(&d&l!&8&l) &7&oCheck your &d&lQuest Book &7&ofor more info'
+        # end
+        goto: QUEST_SUCCESS
+        
+# --------------------------------------------------
+# Success objects
+# Will be executed if the player succeeds the quest
+# (only SERVER objects will be accepted)
+# --------------------------------------------------
+success_objects:
+  '1':
+    type: SERVER_FIREWORK_SPAWN
+    # amount (number, minimum 1, optional) : amount / amount of times the action has to be repeated
+    amount: '1'
+    # firework.color (string, optional) : color of firework
+    firework.color: 'PURPLE'
+    # firework.fade_color (string, optional) : fade color of firework
+    firework.fade_color: 'YELLOW'
+    # firework.flicker (boolean, optional) : should the firework flicker
+    firework.flicker: 'true'
+    # firework.power (number, minimum 0, optional) : power of firework
+    firework.power: '1'
+    # firework.trail (boolean, optional) : should the firework leave a trail
+    firework.trail: 'true'
+    # firework.type (firework effect, optional) : power of firework
+    # possible values : BALL, BALL_LARGE, STAR, BURST, CREEPER
+    firework.type: 'BURST'
+    location: '%player_location%'
+
+
+# --------------------------------------------------
+# Fail objects
+# Will be executed if the player fails the quest
+# (only SERVER objects will be accepted)
+# --------------------------------------------------
+
+fail_objects:
+  '1':
+    type: SERVER_PLAYER_DAMAGE
+    amount: 0.1
