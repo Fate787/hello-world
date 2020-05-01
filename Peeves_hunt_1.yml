@@ -223,21 +223,12 @@ branches:
         # ended : when this object is completed, we go to the next object
         goto: OBJECT 3_FILCHOFFICEMAP
       3_FILCHOFFICEMAP:
-        # pre (wait 3 seconds)
-        wait: 3
-        message: '&4&lClick Me --> htps://dawiki.millee.xyz/ingame/quest/fl1q13 &4&lClick Me --> htps://dawiki.millee.xyz/ingame/quest/fl1q13 &4&lClick Me --> htps://dawiki.millee.xyz/ingame/quest/fl1q13'
-        sound:
-          type: ENTITY_ZOMBIE_VILLAGER_HURT
-        # name
-        name: '&6Peeves' Map'
-        progress_name: '&6Peeves' Map'
         # settings
-        type: DIVERGE
-        repeat_delay: 1440
-        choices:
-          1:
-            text: '&6Peeves' Map'
-            redo_text: '&4Click Me'
+        type: PLAYER_ACTION
+        action_type: 'RIGHTCLICK_SIGN'
+        location:
+            base: 'world,-9708,39,9208' # TO UPDATE
+        message: '&4&lClick Me --> htps://dawiki.millee.xyz/ingame/quest/fl1q13 &4&lClick Me --> htps://dawiki.millee.xyz/ingame/quest/fl1q13 &4&lClick Me --> htps://dawiki.millee.xyz/ingame/quest/fl1q13'
             goto: OBJECT 4_FINDTHETREASURE
       4_FINDTHETREASURE:
         # settings
