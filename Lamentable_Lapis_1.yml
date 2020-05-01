@@ -242,7 +242,7 @@ success_objects:
     location: '%player_location%'
  rewards:
       money: 60
-      &8&k&6&oHagrid&8&k &6&oKey: 1
+      &8&k&oHagrid&8&k &6&oKey: 1
 
 # --------------------------------------------------
 # Fail objects
