@@ -1,0 +1,304 @@
+#----------------------------------------------------------------------------------------------------
+# Quest configuration file (file name without the extension is the quest identifier)
+#----------------------------------------------------------------------------------------------------
+# Refer to the plugin's wiki to have more details about how creating a quest.
+# There are some tips in this file but most explanations (including variables, conditions, etc) are in the wiki.
+#----------------------------------------------------------------------------------------------------
+
+# --------------------------------------------------
+# Quest settings
+# Some general parameters about the quest
+# --------------------------------------------------
+
+# Display settings (color codes are allowed in both but only recommended in description)
+name: '&6&l#MARCHON?!'
+description:
+  - '&eWhat's with this &6&l#MARCHON &estuff? &aI know where to get spare Floo Powder, if you need it'
+
+# Maximum different instances of this quest that can be run at the same time
+# One instance = one running quest (so 2 players doing this quest cooperating is one instance, same goes for one player doing this quest on his own)
+# It's definitely not a good idea to set it to more than 1 if the quest has Objects that affects Citizens NPCs. It might be messy if multiple instances of the quest are manipulating the same Citizens NPCs at the same time.
+# Default : 1
+max_concurrent_instances: -1
+
+# Create a queue for starting this quest if 'max_concurrent_instances' is already reached when trying to start the quest.
+max_concurrent_instances_queue: false
+
+# Minimum/maximum players that can do the quest together (count the quest starter and additionnal coop players, so for instance it's 1 for a solo quest and 2 for a duo quest)
+# Default : minimum 1, maximum 1
+min_players: 1
+max_players: 1
+allow_coop_leave_until_remaining_coop: 1
+
+# Maximum times the player can complete the quest
+max_completions: false
+
+# Allow the quest leader to stop the quest ?
+allow_stop: false
+
+# Maximum time (in minutes) the player has to do the quest, otherwise the quest is cancelled
+# Default : 0 (disabled)
+time_limit: 0
+
+# Time the player will have to wait between completions (will be effective if max_completions is greater than 1)
+# Available options :
+# - DISABLED
+# - ENABLED [minutes]
+# - ENABLED_SUCCESS [minutes] (only on quest success)
+# - ENABLED_FAIL [minutes] (only on quest fail)
+# - ENABLED_CANCEL [minutes] (only on quest cancel)
+# - ENABLED_SUCCESS_AND_FAIL [minutes] (only on quest success or fail)
+# - ENABLED_SUCCESS_AND_CANCEL [minutes] (only on quest success or cancel)
+# - ENABLED_FAIL_AND_CANCEL [minutes] (only on quest fail or cancel)
+# Default : ENABLED
+cooldown: ENABLED 1440
+
+# Should the cooldown be given to leader only ?
+# Default : false
+cooldown_for_leader_only: false
+
+# Action bar displayed during the quest
+# Default : '&a{quest} &7- Objective : &a{detailed_progression}'
+actionbar: '&a&l{quest} &6- Objective: &e{detailed_progression}'
+
+# Display the success/fail message when the player ends the quest
+# Default : true
+send_status_message: true
+
+# Display the objective complete message for group objects
+# Default : true
+send_objective_update_message: true
+
+# The player will need this permission to start the quest
+# Default : empty (disabled)
+permission: ''
+
+# Should the quest leader be the only one to have the quest marked as completed ?
+# Default : false
+complete_for_leader_only: false
+
+# Running quest progression saving method
+# - ENABLED (save on disk/database when player leave, on server stop/reload and with delay)
+# - SERVER_EPHEMERIAL (will be saved when player leaves but when the server is stopped or reloaded all the progression will be erased)
+# - PLAYER_EPHEMERIAL (running quests will not be saved when player leaves or when the server is stopped or reloaded)
+# Default : ENABLED
+saving: ENABLED
+
+# Actions that will make the quest fail if performed
+# Default : empty
+fail_actions: []
+
+# The quest can only be started/progressed in those worlds
+# Default : empty (disabled)
+world_whitelist: []
+
+# The quest can't be started/progressed in those worlds
+# Default : empty (disabled)
+world_blacklist: []
+
+# Integration for 'GPS' plugin ?
+# Default : true (but will only work if the GPS plugin is enabled)
+gps_enable: true
+
+# Integration for 'Dynmap' plugin ?
+# Default : null (disabled)
+dynmap_marker_location: null
+
+# --------------------------------------------------
+# GUI
+# Configure GUI items appearance
+# --------------------------------------------------
+
+gui:
+  # item_available : when the quest is available
+  item_available:
+    type: GREEN_WOOL
+    name: '&a&l{name} &7- &aAVAILABLE'
+    lore:
+           - '&7{description}'
+           - '&eRight click to begin this quest...'
+  # item_progress : will be shown when the quest status is 'in progress'
+  item_progress:
+    type: YELLOW_WOOL
+    name: '&a&l{name} &7- &eIN PROGRESS'
+    lore:
+           - '&7{description}'
+           - '{detailed_progression}'
+           - '&eRight click to stop this quest'
+  # item_cooldown : will be shown when the quest status is 'completed' and the player hasn't reached max_completions and the cooldown is not over
+  item_cooldown:
+    type: RED_WOOL
+    name: '&a&l{name} &7- &cCOOLDOWN'
+    lore:
+           - '&7{description}'
+           - '&7&lYou have completed this quest {completions} time{plural}.'
+           - '&7&l{cooldown} remaining before you can start this quest again.'
+  # item_cooldown_pool : will be shown when the quest status is 'completed' and the player hasn't reached max_completions and the quest pool cooldown is not over
+  item_cooldown_pool:
+    type: RED_WOOL
+    name: '&a&l{name} &7- &cCOOLDOWN'
+    lore:
+           - '&7{description}'
+           - '&7&lYou have completed this quest {completions} time{plural}.'
+           - '&7&l{cooldown} remaining before you can start this quest again.'
+  # item_completed : will be shown when the quest status is 'completed' and the player has reached max_completions
+  item_completed:
+    type: DIAMOND
+    name: '&a&l{name} &7- &aCOMPLETED'
+    lore:
+           - '&7{description}'
+           - '&7&lYou have completed this quest {completions} time{plural}.'
+  # item_unavailable : will be shown when all preconditions aren't okay (model validity, follow check, max players, max instances, permissions, world, start conditions, ...)
+  item_unavailable:
+    type: BARRIER
+    name: '&a&l{name} &7- &4UNAVAILABLE'
+    lore:
+           - '&7{description}'
+           - '&cThis quest isn''t available for you.'
+           - '&c{detailed_errors}'
+
+# --------------------------------------------------
+# Start conditions
+# Things that the player needs to start the quest
+# --------------------------------------------------
+
+#start_conditions: []
+
+  # You could also set it like this :
+  #conditions:
+  #  - registered_condition
+  # ... and register the condition in conditions.yml ; this condition above is really specific to this quest though so it's not really needed
+
+# --------------------------------------------------
+# Quest branches
+# What's going to happen in this quest
+# --------------------------------------------------
+
+branches:
+
+  # --------------------------------------------------
+  # This is our main branch
+  # Everybody will have to follow it because it's the beginning of the quest
+  # --------------------------------------------------
+  1_SEAMUS:
+    # Branch name (optional)
+    name: '#MARCHON?!'
+    # Auto start because it's the main branch
+    starts_directly: true
+    # This branch starts at object named 1_START
+    starts_at: 1_SEAMUS
+    # Objects (content of this branch)
+    objects:
+      # '1_SEAMUS' : our starting object, some messages
+      1_SEAMUS:
+        # settings
+        type: SERVER_ACTION_LIST
+        actions:
+           - 'SOUND ENTITY_VILLAGER_AMBIENT'
+           - 'MESSAGE &4&lSeamus&8&l» &cWhat's that bud?'
+           - 'WAIT 3'
+           - 'SOUND ENTITY_VILLAGER_AMBIENT'
+           - 'MESSAGE &4&lSeamus&8&l» &cYeah, I can't believe his stupid &6&l#MARCHON &cstuff either.'
+           - 'WAIT 3'
+           - 'SOUND ENTITY_VILLAGER_AMBIENT'
+           - 'MESSAGE &4&lSeamus&8&l» &cDon't know what the trachers think they're doin', I'm not even that chubby, I can't speak for you though.'
+           - 'WAIT 3'
+           - 'SOUND ENTITY_VILLAGER_AMBIENT'
+           - 'MESSAGE &4&lSeamus&8&l» &cIf you're running low on &aFloo&2Powder&c, I heard the Weasleys keep some in their secret room.'
+           - 'WAIT 3'
+           - 'SOUND ENTITY_VILLAGER_AMBIENT'
+           - 'MESSAGE &4&lSeamus&8&l» &cYe can get there via the &4&lMeeting Chamber &cconnected to the grand staircase, Good luck findin' it; took me ages at first.'
+           - 'WAIT 3'
+           - 'SOUND ENTITY_VILLAGER_AMBIENT'
+           - 'MESSAGE &4&lSeamus&8&l» &cOnce yeh're in the &4&lMeeting Chamber&c, feel around the walls, A button will open a secret passageway to the Weasleys' room.'
+           - 'WAIT 3'
+           - 'SOUND ENTITY_VILLAGER_AMBIENT'
+           - 'MESSAGE &4&lSeamus&8&l» &cSee you later!'
+        # ended : when this object is completed, we go to the next object
+        goto: OBJECT 2_MEETINGCHAMBER
+      # '2_RULESQUIZ' : our starting object, some messages
+      2_MEETINGCHAMBER:
+        # settings
+        type: PLAYER_WALK
+        walk_type: 'WALK_TO'
+        location:
+            base: 'world,-9718,46,9335' # TO UPDATE
+        actions:
+           - 'SOUND ENTITY_VILLAGER_AMBIENT'
+           - 'MESSAGE &7&oYou've reached the &4&l&oMeeting Chamber &7&o!'
+           - 'SOUND ENTITY_VILLAGER_AMBIENT'
+           - 'MESSAGE &7&oTry all of the buttons inside. See if you can find the secret passageway.'
+        # ended : when this object is completed, we go to the next object
+        goto: OBJECT 3_FINDSECRETROOM
+      # '3_NICKNAME' : ask the player for a nickname and store it in a variable
+     3_FINDSECRETROOM:
+        # settings
+         type: PLAYER_ACTION
+        action_type: 'PUSH_BUTTON'
+        location:
+            base: 'world,-9718,46,9335' # TO UPDATE
+        - 'SOUND ENTITY_VILLAGER_AMBIENT'
+           - 'MESSAGE &7&oYou've found the Weasley's secret room!'
+           - 'WAIT 3'
+           - 'SOUND ENTITY_VILLAGER_AMBIENT'
+           - 'MESSAGE &7&oLook around for some &a&ofloo powder &7&o.'
+        # end
+        goto: OBJECT 4_FINDFLOOPOWDER
+      4_FINDFLOOPOWDER:
+        # settings
+         type: PLAYER_ACTION
+        action_type: 'RIGHTCLICK_SIGN'
+        location:
+            base: 'world,-9718,46,9335' # TO UPDATE
+        - 'SOUND ENTITY_VILLAGER_AMBIENT'
+           - 'MESSAGE &7&oCongraulations! You've found the &aFloo&2Powder&7.'
+           - 'WAIT 3'
+           - 'SOUND ENTITY_VILLAGER_AMBIENT'
+           - 'MESSAGE &7&oYou should thank &4Seamus &7&owhen you get a chance.'
+           goto: OBJECT 5_THANKSEAMUS
+           5_THANKSEAMUS:
+        # settings
+        type: SERVER_ACTION_LIST
+        actions:
+           - 'SOUND ENTITY_VILLAGER_AMBIENT'
+           - 'MESSAGE &4&lSeamus&8&l» &cGood job, mate. Have fun with it. Remember to buy some more from Diagon Alley before ye use it all up, otherwise ye won't be able to use the Floo Network.'
+        # end
+        goto: QUEST_SUCCESS
+
+# --------------------------------------------------
+# Success objects
+# Will be executed if the player succeeds the quest
+# (only SERVER objects will be accepted)
+# --------------------------------------------------
+success_objects:
+  '1':
+    type: SERVER_FIREWORK_SPAWN
+    # amount (number, minimum 1, optional) : amount / amount of times the action has to be repeated
+    amount: '1'
+    # firework.color (string, optional) : color of firework
+    firework.color: 'PURPLE'
+    # firework.fade_color (string, optional) : fade color of firework
+    firework.fade_color: 'YELLOW'
+    # firework.flicker (boolean, optional) : should the firework flicker
+    firework.flicker: 'true'
+    # firework.power (number, minimum 0, optional) : power of firework
+    firework.power: '1'
+    # firework.trail (boolean, optional) : should the firework leave a trail
+    firework.trail: 'true'
+    # firework.type (firework effect, optional) : power of firework
+    # possible values : BALL, BALL_LARGE, STAR, BURST, CREEPER
+    firework.type: 'BURST'
+    location: '%player_location%'
+rewards:
+      &6&l#MARCHON: 1
+      
+# --------------------------------------------------
+# Fail objects
+# Will be executed if the player fails the quest
+# (only SERVER objects will be accepted)
+# --------------------------------------------------
+
+fail_objects:
+  '1':
+    type: SERVER_PLAYER_DAMAGE
+    amount: 0.1
