@@ -31,8 +31,7 @@ max_players: 1
 allow_coop_leave_until_remaining_coop: 1
 
 # Maximum times the player can complete the quest
-# Default : 1
-max_completions: 1
+max_completions: false
 
 # Allow the quest leader to stop the quest ?
 allow_stop: false
@@ -51,8 +50,8 @@ time_limit: 0
 # - ENABLED_SUCCESS_AND_FAIL [minutes] (only on quest success or fail)
 # - ENABLED_SUCCESS_AND_CANCEL [minutes] (only on quest success or cancel)
 # - ENABLED_FAIL_AND_CANCEL [minutes] (only on quest fail or cancel)
-# Default : DISABLED
-cooldown: DISABLED
+# Default : ENABLED
+cooldown: ENABLED 1440
 
 # Should the cooldown be given to leader only ?
 # Default : false
@@ -234,7 +233,7 @@ branches:
         progress_name: '&6Peeves' Map'
         # settings
         type: DIVERGE
-        repeat_delay: 2880
+        repeat_delay: 1440
         choices:
           1:
             text: '&6Peeves' Map'
