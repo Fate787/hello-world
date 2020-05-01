@@ -275,7 +275,9 @@ success_objects:
     # possible values : BALL, BALL_LARGE, STAR, BURST, CREEPER
     firework.type: 'BURST'
     location: '%player_location%'
-
+rewards:
+      money: 500
+      &b&k&f&lTags Crate Key&b&k: 1
 
 # --------------------------------------------------
 # Fail objects
